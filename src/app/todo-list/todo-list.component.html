@@ -3,7 +3,7 @@
     <li *ngFor="let todo of todos" [class.complete]="todo.complete">
       <app-todo-list-item
         [todo]="todo"
-        (toggleComplete)="onToggleTodoComplete($event)"
+        (toggleComplete)="onToggleComplete($event)"
         (remove)="onRemoveTodo($event)"
       >
       </app-todo-list-item>
