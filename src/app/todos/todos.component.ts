@@ -23,8 +23,6 @@ export class TodosComponent implements OnInit {
       .subscribe((todos) => {
         this.todos = todos;
       });
-    console.log(this.route.data);
-    console.log(this.todos);
   }
 
   onAddTodo(todo) {
