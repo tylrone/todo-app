@@ -2,11 +2,13 @@ import { map } from 'rxjs/operators';
 import { TodoDataService } from '../TodoData.service';
 import { Component, OnInit } from '@angular/core';
 import { Todo } from '../todo';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-todos',
   templateUrl: './todos.component.html',
+  styleUrls:['./todos.component.css'],
   providers: [TodoDataService],
 })
 export class TodosComponent implements OnInit {
@@ -14,7 +16,9 @@ export class TodosComponent implements OnInit {
 
   constructor(
     private todoDataService: TodoDataService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private auth: AuthService,
+    private router: Router
   ) {}
 
   public ngOnInit() {
@@ -23,8 +27,6 @@ export class TodosComponent implements OnInit {
       .subscribe((todos) => {
         this.todos = todos;
       });
-    console.log(this.route.data);
-    console.log(this.todos);
   }
 
   onAddTodo(todo) {
@@ -42,5 +44,10 @@ export class TodosComponent implements OnInit {
     this.todoDataService.deleteTodoById(todo.id).subscribe((_) => {
       this.todos = this.todos.filter((t) => t.id !== todo.id);
     });
+  }
+
+  doSignOut(){
+    this.auth.doSignOut();
+    this.router.navigate(['/sign-in']);
   }
 }

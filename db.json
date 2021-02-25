@@ -12,12 +12,12 @@
     },
     {
       "title": "adas",
-      "complete": false,
+      "complete": true,
       "id": 3
     },
     {
       "title": "asd",
-      "complete": false,
+      "complete": true,
       "id": 4
     }
   ]

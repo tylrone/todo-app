@@ -1,3 +1,4 @@
+import { SessionService } from './session.service';
 import { ApiService } from './Api.service';
 import { TodoDataService } from './TodoData.service';
 import { FormsModule } from '@angular/forms';
@@ -14,21 +15,25 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { TodosComponent } from './todos/todos.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { AuthService } from './auth.service';
+import { SignInComponent } from './sign-in/sign-in.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [		
+  declarations: [
     AppComponent,
       TodoListHeaderComponent,
       TodoListComponent,
       TodoListItemComponent,
       TodoListFooterComponent,
       TodosComponent,
-      PageNotFoundComponent
+      PageNotFoundComponent,
+      SignInComponent
    ],
   imports: [
-    BrowserModule,FormsModule,HttpClientModule, AppRoutingModule
+    BrowserModule,FormsModule,HttpClientModule, AppRoutingModule, ReactiveFormsModule
   ],
-  providers: [TodoDataService, ApiService],
+  providers: [TodoDataService, ApiService, SessionService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
