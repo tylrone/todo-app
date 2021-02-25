@@ -9,7 +9,6 @@ import { map } from 'rxjs/operators';
 //import 'rxjs/add/operator/map';
 //import { map } from 'rxjs';
 import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
 //import 'rxjs/Rx';
 
 const API_URL = environment.apiUrl;
@@ -22,7 +21,7 @@ export class ApiService {
 
   private handleError(error: Response | any) {
     console.error('ApiService::handleError', error);
-    return Observable.throw(error);
+    return error;
   }
   // API GET /todos
   public getAllTodos(): Observable<Todo[]> {
