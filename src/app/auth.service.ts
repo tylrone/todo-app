@@ -22,6 +22,7 @@ constructor(private session: SessionService) { }
     }
     this.session.accessToken = accessToken;
     this.session.name = name;
+    console.log(this.session);
   }
 
 }

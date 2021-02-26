@@ -3,7 +3,10 @@ const server = jsonServer.create();
 const router = jsonServer.router('db.json');
 const middlewares = jsonServer.defaults();
 const bodyParser = require('body-parser');
+const jwt = require('jsonwebtoken');
 
+
+const secrectKey = "myKey111";
 
 // Sample JWT token for demo purposes
 const jwtToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2l0ZVBvaW50IFJ' +
@@ -20,13 +23,16 @@ server.post('/sign-in', (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
   if(username === 'demo' && password === 'demo'){
+    var token = jwt.sign({username}, secrectKey);
     const obj = {
       name: 'Le Trung Cuong',
-      token: jwtToken
+      token: token
     };
     res.send(obj);
   }
-  res.send(442, 'tài khoản hoặc mật khẩu không chính xác');
+  else{
+    res.status(442).send('tài khoản hoặc mật khẩu không chính xác');
+  }
 });
 
 // Protect other routes
@@ -43,9 +49,10 @@ server.use((req, res, next) => {
 
 // Check whether request is allowed
 function isAuthorized(req){
+
   let bearer = req.get('Authorization');
-  console.log(bearer);
-  if(bearer === 'Bearer ' + jwtToken){
+  var decode = jwt.verify(bearer, secrectKey);
+  if(decode.username ===  'demo'){
     return true;
   }
   return false;

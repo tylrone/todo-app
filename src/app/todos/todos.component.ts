@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { map } from 'rxjs/operators';
 import { TodoDataService } from '../TodoData.service';
 import { Component, OnInit } from '@angular/core';
@@ -18,10 +19,12 @@ export class TodosComponent implements OnInit {
     private todoDataService: TodoDataService,
     private route: ActivatedRoute,
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private title: Title
   ) {}
 
   public ngOnInit() {
+    this.title.setTitle('Todos list');
     this.route.data
       .pipe(map((data) => data['todos']))
       .subscribe((todos) => {
@@ -32,7 +35,7 @@ export class TodosComponent implements OnInit {
   onAddTodo(todo) {
     this.todoDataService.addTodo(todo).subscribe((newtodo) => {
       this.todos = this.todos.concat(newtodo);
-    });
+    },(error:any) =>{console.log(error)}, () =>{console.log("done")});// observable.subscribe(next, error, complete)
   }
 
   onToggleTodoComplete(todo) {
